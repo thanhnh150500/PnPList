@@ -1,4 +1,4 @@
-$SiteUrl = "https://cowelljp.sharepoint.com/sites/CWTraining"
+$SiteUrl = "https://cowelljp.sharepoint.com/sites/SPO07"
 $SiteUser = "CwDemo@cowelljp.onmicrosoft.com"
 
 $PassWord = ConvertTo-SecureString "Training123" -AsPlainText -Force
