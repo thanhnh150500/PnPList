@@ -1,50 +1,111 @@
 $SiteUrl = "https://cowelljp.sharepoint.com/sites/SPO07"
-$SiteUser = "CwDemo@cowelljp.onmicrosoft.com"
+$SiteUser = "CwThanhNH@cowelljp.onmicrosoft.com"
 
-$PassWord = ConvertTo-SecureString "Training123" -AsPlainText -Force
+$PassWord = ConvertTo-SecureString "Bean101500" -AsPlainText -Force
 
 $CredInfo = New-Object System.Management.Automation.PSCredential($SiteUser, $PassWord)
 			Write-Host "Connecting... to site:"$SiteUrl -f Green
 			Connect-PnPOnline $SiteUrl -Credentials $CredInfo -WarningAction Ignore
 			Write-Host "Connected" -f Green
-# Function check if List Exists
-function CheckExistsField($FieldCheck , $ListCheck){
-    Write-Host $FieldCheck -f Blue
-    $FieldName = Get-PnPField -List $ListCheck -Identity $FieldCheck
-    Write-Host $FieldName.Title 
-    if($FieldName.Title -eq $FieldCheck){
-        Write-Host $FieldCheck " exists" -f Blue
-    }
-    else{
-        Write-Host $FieldCheck " not exists" -f Red
-    }
+
+$ListName = "PnpRegistractionDetail"	   
+New-PnPList -Title $ListName -Template GenericList
+
+Try {          
+	# Rename List
+	$FieldName = '<Field Type="Text" DisplayName="FullName" Required="TRUE" MaxLength="255" Name="FullName"/>'              
+	Add-PnPFieldFromXml -FieldXml $FieldName -List $ListName
+
+	$FieldAge = '<Field
+			Type="Number"
+			Name="Age"
+			DisplayName="Age"
+			Required="TRUE"
+			Description=""
+			Min="0"
+			Max="200"
+			>
+		</Field>'
+	Add-PnPFieldFromXml -FieldXml $FieldAge -List $ListName
+
+
+	$FiledDayOfBirth = '<Field
+		Type="DateTime"
+		DisplayName="DayOfBirth"
+		Format="DateTime"
+		Required="TRUE"		
+		Name="DayOfBirth">
+	</Field>'
+	Add-PnPFieldFromXml -FieldXml $FiledDayOfBirth -List $ListName
+
+
+	$FieldEmail = '<Field Type="Text" DisplayName="Email" Required="TRUE" MaxLength="255" Name="Email"/>'
+	Add-PnPFieldFromXml -FieldXml $FieldEmail -List $ListName
+
+
+	$FieldPhoneNumber = '<Field Type="Text" DisplayName="FullName" Required="TRUE" MaxLength="255" Name="FullName"/>'
+	Add-PnPFieldFromXml -FieldXml $FieldPhoneNumber -List $ListName
+
+
+	$FieldAddress = '<Field
+		Type="Note"		
+		Name="Address"
+		DisplayName="Address"
+		NumLines="6"
+		Required="TRUE">
+	    </Field>'
+	Add-PnPFieldFromXml -FieldXml $FieldAddress -List $ListName
+
+
+	$FieldPicture = '<Field Type="Image" DisplayName="Picture" Required="TRUE" Name="Picture" ></Field>'
+	Add-PnPFieldFromXml -FieldXml $FieldPicture -List $ListName
+
+
+	$FieldTShirtSize = '<Field Type="MultiChoice" DisplayName="TShirtSize" Required="TRUE" Format="Checkboxes" FillInChoice="FALSE" Name="TShirtSize">
+		<Default> XS </Default>
+		<CHOICES>
+			<CHOICE>XS </CHOICE>
+			<CHOICE>S </CHOICE>
+			<CHOICE>M </CHOICE>  
+			<CHOICE>L </CHOICE>
+			<CHOICE>XL </CHOICE>
+			<CHOICE>XXL </CHOICE>
+		</CHOICES>
+		</Field>'
+	Add-PnPFieldFromXml -FieldXml $FieldTShirtSize -List $ListName
+
+
+	$FieldPaymentMethod = '<Field Type="Choice" DisplayName="PaymentMethod" Required="TRUE" Format="Dropdown" Name="PaymentMethod">
+		<Default> Cash </Default>
+		<CHOICES>
+			<CHOICE>Cash </CHOICE>
+			<CHOICE>Credit Card </CHOICE>
+			<CHOICE>Check </CHOICE>
+			
+			<CHOICE>PayPal </CHOICE>
+			<CHOICE>Bank Transfer </CHOICE>
+		</CHOICES>
+		</Field>'
+	Add-PnPFieldFromXml -FieldXml $FieldPaymentMethod -List $ListName
+
+
+	$FiledRegisterFee = '<Field Type="Choice" DisplayName="RegistrationFee" Required="TRUE" Format="RadioButtons"  Name="TShirtSize">
+		<Default> 3K run $20 </Default>
+		<CHOICES>
+			<CHOICE>3K run $20 </CHOICE>
+			<CHOICE>5K run $30 </CHOICE>
+			<CHOICE>10K run $40 </CHOICE>  
+        </CHOICES>
+        </Field>'	
+	Add-PnPFieldFromXml -FieldXml $FiledRegisterFee -List $ListName
+	Set-PnPList -Identity "PnpRegistractionDetail" -Title "Pnp Registraction Detail" 
+
+	Write-Host "Done" -f Green                 	         
+     
+}
+Catch {
+	write-host -f Red "Error Creating List!" $_.Exception.Message   
 }
 
-try {
-    $ListName = "Lst_Pnp_Demo"		
-    $List = Get-PnPList -Identity $ListName
-    
-    If ($List.Title -eq $ListName) {  
-       # Write-Host $listTitle " - List exist!"
-       $Vari = "PnpLocation"
-       CheckExistsField -FieldCheck $Vari -ListCheck $ListName 
-    }
 
-    ELSE {
-        #Create a List name demo
-        New-PnPList -Title $ListName -Template GenericList
-			
-        #Create a column name Location of Text
-        Add-PnPField -List $ListName -DisplayName "PnpLocation" -InternalName "PnpLocation" -Type Text
-			
-        $FieldXml = '<Field Type="Text" DisplayName="Pnp Demo Name" Required="TRUE" MaxLength="255" Name="PnpDemoName" Description="Pnp Name for the Demo" />'
-        Add-PnPFieldFromXml -FieldXml $FieldXml -List $ListName
-		CheckExistsField("PnpLocation",$ListName)	
-        Write-Host "Done" -f Green
-       # Write-Host $listTitle " - List not exist!"  
-    }
-}
-catch {
-    Write-Host"erorr!!!" -f Blue
-    #{ 1:<#Do this if a terminating exception happens#> }
-}
+
