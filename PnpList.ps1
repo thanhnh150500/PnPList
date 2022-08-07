@@ -28,7 +28,6 @@ Try {
 		</Field>'
 	Add-PnPFieldFromXml -FieldXml $FieldAge -List $ListName
 
-
 	$FiledDayOfBirth = '<Field
 		Type="DateTime"
 		DisplayName="DayOfBirth"
@@ -38,14 +37,12 @@ Try {
 	</Field>'
 	Add-PnPFieldFromXml -FieldXml $FiledDayOfBirth -List $ListName
 
-
 	$FieldEmail = '<Field Type="Text" DisplayName="Email" Required="TRUE" MaxLength="255" Name="Email"/>'
 	Add-PnPFieldFromXml -FieldXml $FieldEmail -List $ListName
 
 
 	$FieldPhoneNumber = '<Field Type="Text" DisplayName="FullName" Required="TRUE" MaxLength="255" Name="FullName"/>'
 	Add-PnPFieldFromXml -FieldXml $FieldPhoneNumber -List $ListName
-
 
 	$FieldAddress = '<Field
 		Type="Note"		
@@ -56,10 +53,8 @@ Try {
 	    </Field>'
 	Add-PnPFieldFromXml -FieldXml $FieldAddress -List $ListName
 
-
 	$FieldPicture = '<Field Type="Image" DisplayName="Picture" Required="TRUE" Name="Picture" ></Field>'
 	Add-PnPFieldFromXml -FieldXml $FieldPicture -List $ListName
-
 
 	$FieldTShirtSize = '<Field Type="MultiChoice" DisplayName="TShirtSize" Required="TRUE" Format="Checkboxes" FillInChoice="FALSE" Name="TShirtSize">
 		<Default> XS </Default>
@@ -74,7 +69,6 @@ Try {
 		</Field>'
 	Add-PnPFieldFromXml -FieldXml $FieldTShirtSize -List $ListName
 
-
 	$FieldPaymentMethod = '<Field Type="Choice" DisplayName="PaymentMethod" Required="TRUE" Format="Dropdown" Name="PaymentMethod">
 		<Default> Cash </Default>
 		<CHOICES>
@@ -88,7 +82,6 @@ Try {
 		</Field>'
 	Add-PnPFieldFromXml -FieldXml $FieldPaymentMethod -List $ListName
 
-
 	$FiledRegisterFee = '<Field Type="Choice" DisplayName="RegistrationFee" Required="TRUE" Format="RadioButtons"  Name="TShirtSize">
 		<Default> 3K run $20 </Default>
 		<CHOICES>
@@ -98,6 +91,7 @@ Try {
         </CHOICES>
         </Field>'	
 	Add-PnPFieldFromXml -FieldXml $FiledRegisterFee -List $ListName
+	
 	Set-PnPList -Identity "PnpRegistractionDetail" -Title "Pnp Registraction Detail" 
 
 	Write-Host "Done" -f Green                 	         
