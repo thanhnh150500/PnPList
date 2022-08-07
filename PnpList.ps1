@@ -13,7 +13,7 @@ New-PnPList -Title $ListName -Template GenericList
 
 Try {          
 	# Rename List
-	$FieldName = '<Field Type="Text" DisplayName="FullName" Required="TRUE" MaxLength="255" Name="FullName"/>'              
+	$FieldName = '<Field Type="Text" DisplayName="Full Name" Required="TRUE" MaxLength="255" Name="FullName"/>'              
 	Add-PnPFieldFromXml -FieldXml $FieldName -List $ListName
 
 	$FieldAge = '<Field
@@ -30,7 +30,7 @@ Try {
 
 	$FiledDayOfBirth = '<Field
 		Type="DateTime"
-		DisplayName="DayOfBirth"
+		DisplayName="Day Of Birth"
 		Format="DateTime"
 		Required="TRUE"		
 		Name="DayOfBirth">
@@ -41,7 +41,7 @@ Try {
 	Add-PnPFieldFromXml -FieldXml $FieldEmail -List $ListName
 
 
-	$FieldPhoneNumber = '<Field Type="Text" DisplayName="FullName" Required="TRUE" MaxLength="255" Name="FullName"/>'
+	$FieldPhoneNumber = '<Field Type="Text" DisplayName="Phone Number" Required="TRUE" MaxLength="255" Name="PhoneNumber"/>'
 	Add-PnPFieldFromXml -FieldXml $FieldPhoneNumber -List $ListName
 
 	$FieldAddress = '<Field
@@ -56,7 +56,7 @@ Try {
 	$FieldPicture = '<Field Type="Image" DisplayName="Picture" Required="TRUE" Name="Picture" ></Field>'
 	Add-PnPFieldFromXml -FieldXml $FieldPicture -List $ListName
 
-	$FieldTShirtSize = '<Field Type="MultiChoice" DisplayName="TShirtSize" Required="TRUE" Format="Checkboxes" FillInChoice="FALSE" Name="TShirtSize">
+	$FieldTShirtSize = '<Field Type="MultiChoice" DisplayName="T-Shirt Size" Required="TRUE" Format="Checkboxes" FillInChoice="FALSE" Name="TShirtSize">
 		<Default> XS </Default>
 		<CHOICES>
 			<CHOICE>XS </CHOICE>
@@ -69,7 +69,7 @@ Try {
 		</Field>'
 	Add-PnPFieldFromXml -FieldXml $FieldTShirtSize -List $ListName
 
-	$FieldPaymentMethod = '<Field Type="Choice" DisplayName="PaymentMethod" Required="TRUE" Format="Dropdown" Name="PaymentMethod">
+	$FieldPaymentMethod = '<Field Type="Choice" DisplayName="Payment Method" Required="TRUE" Format="Dropdown" Name="PaymentMethod">
 		<Default> Cash </Default>
 		<CHOICES>
 			<CHOICE>Cash </CHOICE>
@@ -91,7 +91,7 @@ Try {
         </CHOICES>
         </Field>'	
 	Add-PnPFieldFromXml -FieldXml $FiledRegisterFee -List $ListName
-	
+
 	Set-PnPList -Identity "PnpRegistractionDetail" -Title "Pnp Registraction Detail" 
 
 	Write-Host "Done" -f Green                 	         
